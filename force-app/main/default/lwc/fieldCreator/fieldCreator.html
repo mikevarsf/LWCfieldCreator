@@ -1,0 +1,87 @@
+<!-- Field Creator -->
+<template>
+    <div class="slds-box">
+        <lightning-card  title="New Custom Field" icon-name="action:apex">
+            <template if:true={latestFieldId}>
+                <div class="slds-clearfix">
+                    <div class="slds-float_right">
+                        <a href={latestFieldUrl} class="slds-button slds-button_brand" target="_blank">Open Field</a>
+                    </div>
+                </div>
+            </template>
+
+            <div class="slds-form">
+                <template if:true={showSpinner}>
+                    <div class="spinnerHolder slds-align_absolute-center">
+                        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                    </div>
+                </template> 
+
+                <template if:false={showSpinner}>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input type="text" variant="standard" name="objectApiName" value={objectApiName}
+                                         onchange={handleInputChange} label="Object API Name"
+                                         field-level-help="Default: the object where a component is located"
+                                         placeholder="type here..."></lightning-input>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-combobox name="type" label="Field Type" placeholder="Select field type" data-id="fieldType"
+                                            field-level-help="Select field type" onchange={handleInputChange}
+                                            value={newFieldSchema.type}
+                                            options={FIELD_TYPES} dropdown-alignment="auto" required="true">
+                        </lightning-combobox>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input type="text" variant="standard" name="label"
+                                         onchange={handleInputChange} label="Label"
+                                         placeholder="type here..."></lightning-input>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input type="text" variant="standard" name="apiName"
+                                         value={newFieldSchema.apiName}
+                                         onchange={handleInputChange} label="API Name"
+                                         placeholder="type here..."></lightning-input>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input type="number" name="length" label="Field Length"
+                                         value={newFieldSchema.length}
+                                         onchange={handleInputChange}
+                                         min=0></lightning-input>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-textarea name="description" label="Description"
+                                            onchange={handleInputChange}
+                                            placeholder="type here..."></lightning-textarea>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-textarea name="inlineHelpText" label="Help Text"
+                                            onchange={handleInputChange}
+                                            placeholder="type here..."></lightning-textarea>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input type="checkbox" name="required"
+                                         onchange={handleInputChange} label="Required?"
+                                         field-level-help="Is not applied to the Checkbox type"></lightning-input>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <div class="slds-clearfix">
+                            <div class="slds-float_right">
+                                <lightning-button variant="brand" label="Create" title="create"
+                                                  onclick={handleCreateNewField} class="slds-m-left_x-small"></lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <p slot="footer"></p>
+        </lightning-card>
+    </div>
+</template>
